@@ -1,4 +1,3 @@
-
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import Layout from "@/components/Layout";
@@ -9,7 +8,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Link } from "react-router-dom";
-import { ArrowUp, ArrowDown, Check, Clock } from "lucide-react";
+import { ArrowUp, ArrowDown, Check, Clock, MessageSquare } from "lucide-react";
+import ForumSection from "@/components/forum/ForumSection";
+import ContributionDetail from "@/components/contributions/ContributionDetail";
 
 // Mock data for a specific problem - in a real app, this would come from an API
 const getProblemData = (id: string) => {
@@ -33,10 +34,84 @@ const getProblemData = (id: string) => {
         { id: 3, name: "CU Boulder Students", type: "community" }
       ],
       contributions: [
-        { id: 1, type: "Research", title: "Transport Access Survey Results", author: "Jane Smith", date: "2025-02-15", votes: 12 },
-        { id: 2, type: "Idea", title: "E-bike Sharing Program", author: "Mike Johnson", date: "2025-02-20", votes: 18 },
-        { id: 3, type: "Resource", title: "Transit Funding Guide", author: "Alex Torres", date: "2025-03-01", votes: 9 },
-        { id: 4, type: "Question", title: "ADA Compliance Research", author: "Sam Williams", date: "2025-03-10", votes: 7 }
+        { 
+          id: 1, 
+          type: "Research", 
+          title: "Transport Access Survey Results", 
+          author: "Jane Smith", 
+          date: "2025-02-15", 
+          votes: 12,
+          description: "Results from a survey of 500 Boulder residents regarding transportation access needs and challenges.",
+          comments: [
+            { id: 1, author: "Mike Johnson", content: "Great data collection! Did you segment by neighborhood?", date: "2025-02-16", likes: 3 },
+            { id: 2, author: "Sarah Lee", content: "This matches what we've seen in the north side communities.", date: "2025-02-17", likes: 5 }
+          ]
+        },
+        { 
+          id: 2, 
+          type: "Idea", 
+          title: "E-bike Sharing Program", 
+          author: "Mike Johnson", 
+          date: "2025-02-20", 
+          votes: 18,
+          description: "Implementing a subsidized e-bike sharing system targeting areas with limited public transit access.",
+          comments: [
+            { id: 3, author: "Alex Torres", content: "Have you considered the infrastructure costs?", date: "2025-02-21", likes: 1 },
+            { id: 4, author: "Jane Smith", content: "This could pair well with the survey data I collected.", date: "2025-02-22", likes: 4 }
+          ]
+        },
+        { 
+          id: 3, 
+          type: "Resource", 
+          title: "Transit Funding Guide", 
+          author: "Alex Torres", 
+          date: "2025-03-01", 
+          votes: 9,
+          description: "Comprehensive guide to federal, state, and local funding sources for community transportation initiatives.",
+          comments: []
+        },
+        { 
+          id: 4, 
+          type: "Question", 
+          title: "ADA Compliance Research", 
+          author: "Sam Williams", 
+          date: "2025-03-10", 
+          votes: 7,
+          description: "Looking for resources on ADA requirements for transportation solutions in Boulder County.",
+          comments: [
+            { id: 5, author: "Robin Taylor", content: "The city planning department has guidelines available.", date: "2025-03-11", likes: 2 }
+          ]
+        }
+      ],
+      relatedProjects: [
+        { id: 1, name: "Multi-modal Transportation Map", status: "In Progress" },
+        { id: 3, name: "Boulder Creek Corridor Access Plan", status: "Planning" }
+      ],
+      forumThreads: [
+        { 
+          id: 1, 
+          title: "Transportation equity in East Boulder", 
+          author: "Emma Chen",
+          date: "2025-01-20", 
+          replies: 14,
+          lastActivity: "2025-02-15"
+        },
+        { 
+          id: 2, 
+          title: "Bike lane safety improvements", 
+          author: "David Lopez",
+          date: "2025-01-25", 
+          replies: 8,
+          lastActivity: "2025-02-10"
+        },
+        { 
+          id: 3, 
+          title: "Student transportation needs discussion", 
+          author: "Jordan Smith",
+          date: "2025-02-05", 
+          replies: 12,
+          lastActivity: "2025-02-18"
+        }
       ],
       similarProblems: [
         { id: 5, title: "Sustainable Water Management", relation: "Sustainability focus" },
@@ -187,6 +262,7 @@ const ProblemDetail = () => {
   const { id } = useParams<{ id: string }>();
   const problem = getProblemData(id!);
   const [activeTab, setActiveTab] = useState("overview");
+  const [selectedContribution, setSelectedContribution] = useState<number | null>(null);
   
   if (!problem) {
     return (
@@ -307,6 +383,12 @@ const ProblemDetail = () => {
                 Contributions
               </TabsTrigger>
               <TabsTrigger 
+                value="forum" 
+                className="px-4 py-2 rounded-none border-b-2 border-transparent data-[state=active]:border-boulder-teal-500 data-[state=active]:bg-transparent"
+              >
+                Forum
+              </TabsTrigger>
+              <TabsTrigger 
                 value="stakeholders" 
                 className="px-4 py-2 rounded-none border-b-2 border-transparent data-[state=active]:border-boulder-teal-500 data-[state=active]:bg-transparent"
               >
@@ -316,7 +398,7 @@ const ProblemDetail = () => {
                 value="related" 
                 className="px-4 py-2 rounded-none border-b-2 border-transparent data-[state=active]:border-boulder-teal-500 data-[state=active]:bg-transparent"
               >
-                Related Problems
+                Related
               </TabsTrigger>
             </TabsList>
             
@@ -360,31 +442,66 @@ const ProblemDetail = () => {
             
             <TabsContent value="contributions" className="mt-6">
               <h2 className="text-xl font-semibold mb-4">Contributions</h2>
-              <div className="mb-6">
-                <Button className="mb-4 bg-boulder-teal-500 hover:bg-boulder-teal-600">Add a Contribution</Button>
-                
-                <div className="space-y-4">
-                  {problem.contributions?.map((contribution) => (
-                    <Card key={contribution.id} className="boulder-card">
-                      <CardContent className="pt-6">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <Badge variant="outline" className="mb-2">{contribution.type}</Badge>
-                            <h3 className="text-lg font-medium mb-1">{contribution.title}</h3>
-                            <div className="text-sm text-boulder-stone-500">
-                              By {contribution.author} • {new Date(contribution.date).toLocaleDateString()}
-                            </div>
-                          </div>
-                          <Button variant="outline" size="sm" className="flex items-center gap-1">
-                            <ArrowUp className="w-3 h-3" />
-                            {contribution.votes}
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+              {selectedContribution !== null ? (
+                <div>
+                  <Button 
+                    variant="outline" 
+                    className="mb-4"
+                    onClick={() => setSelectedContribution(null)}
+                  >
+                    ← Back to all contributions
+                  </Button>
+                  <ContributionDetail 
+                    contribution={problem.contributions.find(c => c.id === selectedContribution)!} 
+                  />
                 </div>
-              </div>
+              ) : (
+                <div className="mb-6">
+                  <Button className="mb-4 bg-boulder-teal-500 hover:bg-boulder-teal-600">Add a Contribution</Button>
+                  
+                  <div className="space-y-4">
+                    {problem.contributions?.map((contribution) => (
+                      <Card key={contribution.id} className="boulder-card">
+                        <CardContent className="pt-6">
+                          <div className="flex justify-between items-start mb-3">
+                            <div>
+                              <Badge variant="outline" className="mb-2">{contribution.type}</Badge>
+                              <h3 className="text-lg font-medium mb-1">{contribution.title}</h3>
+                              <div className="text-sm text-boulder-stone-500">
+                                By {contribution.author} • {new Date(contribution.date).toLocaleDateString()}
+                              </div>
+                            </div>
+                            <Button variant="outline" size="sm" className="flex items-center gap-1">
+                              <ArrowUp className="w-3 h-3" />
+                              {contribution.votes}
+                            </Button>
+                          </div>
+                          <p className="text-sm text-boulder-stone-600 line-clamp-2 mb-3">
+                            {contribution.description}
+                          </p>
+                          <div className="flex justify-between items-center">
+                            <div className="flex items-center gap-1 text-boulder-stone-500">
+                              <MessageSquare className="w-4 h-4" />
+                              <span className="text-xs">{contribution.comments.length} comments</span>
+                            </div>
+                            <Button 
+                              variant="link" 
+                              className="text-boulder-teal-600 p-0 h-auto"
+                              onClick={() => setSelectedContribution(contribution.id)}
+                            >
+                              View details →
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </TabsContent>
+            
+            <TabsContent value="forum" className="mt-6">
+              <ForumSection threads={problem.forumThreads} />
             </TabsContent>
             
             <TabsContent value="stakeholders" className="mt-6">
@@ -410,16 +527,42 @@ const ProblemDetail = () => {
             </TabsContent>
             
             <TabsContent value="related" className="mt-6">
-              <h2 className="text-xl font-semibold mb-4">Related Problems</h2>
-              <div className="space-y-4">
-                {problem.similarProblems.map(related => (
-                  <div key={related.id} className="border p-4 rounded-lg">
-                    <Link to={`/problems/${related.id}`} className="text-boulder-teal-700 hover:text-boulder-teal-800 font-medium">
-                      {related.title}
-                    </Link>
-                    <div className="text-sm text-boulder-stone-500">Relation: {related.relation}</div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">Related Problems</h2>
+                  <div className="space-y-4">
+                    {problem.similarProblems.map(related => (
+                      <div key={related.id} className="border p-4 rounded-lg">
+                        <Link to={`/problems/${related.id}`} className="text-boulder-teal-700 hover:text-boulder-teal-800 font-medium">
+                          {related.title}
+                        </Link>
+                        <div className="text-sm text-boulder-stone-500">Relation: {related.relation}</div>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+                
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">Related Projects</h2>
+                  <div className="space-y-4">
+                    {problem.relatedProjects?.map(project => (
+                      <div key={project.id} className="border p-4 rounded-lg">
+                        <Link to={`/projects/${project.id}`} className="text-boulder-teal-700 hover:text-boulder-teal-800 font-medium">
+                          {project.name}
+                        </Link>
+                        <div className="text-sm text-boulder-stone-500">
+                          <Badge variant="outline" className={
+                            project.status === "In Progress" 
+                              ? "bg-boulder-sky-50 text-boulder-sky-600 border-boulder-sky-200"
+                              : "bg-boulder-sand-50 text-boulder-sand-700 border-boulder-sand-200"
+                          }>
+                            {project.status}
+                          </Badge>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </TabsContent>
           </Tabs>
