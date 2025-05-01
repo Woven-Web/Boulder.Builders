@@ -1,3 +1,4 @@
+
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import Layout from "@/components/Layout";
@@ -137,9 +138,63 @@ const getProblemData = (id: string) => {
         { id: 6, name: "Local Employers", type: "business" }
       ],
       contributions: [
-        { id: 5, type: "Research", title: "Housing Cost Analysis", author: "Emma Chen", date: "2025-01-30", votes: 15 },
-        { id: 6, type: "Idea", title: "Co-housing Development Model", author: "David Lopez", date: "2025-02-05", votes: 22 },
-        { id: 7, type: "Resource", title: "Affordable Housing Toolkit", author: "Robin Taylor", date: "2025-02-12", votes: 11 }
+        { 
+          id: 5, 
+          type: "Research", 
+          title: "Housing Cost Analysis", 
+          author: "Emma Chen", 
+          date: "2025-01-30", 
+          votes: 15,
+          description: "Comprehensive analysis of housing costs in Boulder County compared to income levels.",
+          comments: [
+            { id: 6, author: "David Lopez", content: "This analysis is really eye-opening. Have you looked at surrounding counties for comparison?", date: "2025-01-31", likes: 4 }
+          ]
+        },
+        { 
+          id: 6, 
+          type: "Idea", 
+          title: "Co-housing Development Model", 
+          author: "David Lopez", 
+          date: "2025-02-05", 
+          votes: 22,
+          description: "Proposal for community-oriented co-housing developments to increase density while fostering community connections.",
+          comments: [
+            { id: 7, author: "Emma Chen", content: "I like how this addresses both the housing shortage and social isolation issues.", date: "2025-02-06", likes: 5 },
+            { id: 8, author: "Robin Taylor", content: "Are there examples of this working in similar communities?", date: "2025-02-07", likes: 3 }
+          ]
+        },
+        { 
+          id: 7, 
+          type: "Resource", 
+          title: "Affordable Housing Toolkit", 
+          author: "Robin Taylor", 
+          date: "2025-02-12", 
+          votes: 11,
+          description: "Collection of resources, policies, and case studies for implementing affordable housing solutions.",
+          comments: []
+        }
+      ],
+      relatedProjects: [
+        { id: 2, name: "Community Land Trust Initiative", status: "In Progress" },
+        { id: 4, name: "Workforce Housing Development", status: "Planning" }
+      ],
+      forumThreads: [
+        { 
+          id: 4, 
+          title: "Zoning reform ideas", 
+          author: "David Lopez",
+          date: "2025-01-22", 
+          replies: 18,
+          lastActivity: "2025-02-10"
+        },
+        { 
+          id: 5, 
+          title: "Affordable housing for seniors", 
+          author: "Robin Taylor",
+          date: "2025-01-28", 
+          replies: 9,
+          lastActivity: "2025-02-15"
+        }
       ],
       similarProblems: [
         { id: 1, title: "Urban Mobility & Transportation Access", relation: "Infrastructure & access" },
@@ -165,9 +220,64 @@ const getProblemData = (id: string) => {
         { id: 9, name: "Environmental Organizations", type: "organization" }
       ],
       contributions: [
-        { id: 8, type: "Research", title: "Watershed Analysis", author: "Jamie Wilson", date: "2025-02-15", votes: 14 },
-        { id: 9, type: "Idea", title: "Smart Irrigation System", author: "Pat Chen", date: "2025-02-28", votes: 19 },
-        { id: 10, type: "Question", title: "Graywater Reuse Systems", author: "Leslie Martin", date: "2025-03-05", votes: 8 }
+        { 
+          id: 8, 
+          type: "Research", 
+          title: "Watershed Analysis", 
+          author: "Jamie Wilson", 
+          date: "2025-02-15", 
+          votes: 14,
+          description: "Comprehensive analysis of Boulder's watershed, including current conditions and future projections.",
+          comments: [
+            { id: 9, author: "Pat Chen", content: "Have you considered the impact of wildfire risk on water quality?", date: "2025-02-16", likes: 3 }
+          ]
+        },
+        { 
+          id: 9, 
+          type: "Idea", 
+          title: "Smart Irrigation System", 
+          author: "Pat Chen", 
+          date: "2025-02-28", 
+          votes: 19,
+          description: "Proposal for implementing smart irrigation technology in public spaces and incentivizing residential adoption.",
+          comments: [
+            { id: 10, author: "Jamie Wilson", content: "This could reduce water usage by up to 30% according to my research.", date: "2025-03-01", likes: 4 }
+          ]
+        },
+        { 
+          id: 10, 
+          type: "Question", 
+          title: "Graywater Reuse Systems", 
+          author: "Leslie Martin", 
+          date: "2025-03-05", 
+          votes: 8,
+          description: "Looking for information on implementing residential graywater reuse systems in Boulder County.",
+          comments: [
+            { id: 11, author: "Jamie Wilson", content: "The regulations around this changed recently. I can share the updates.", date: "2025-03-06", likes: 2 }
+          ]
+        }
+      ],
+      relatedProjects: [
+        { id: 5, name: "Boulder Watershed Protection Plan", status: "Active" },
+        { id: 6, name: "Water-Wise Landscaping Initiative", status: "Planning" }
+      ],
+      forumThreads: [
+        { 
+          id: 6, 
+          title: "Water rights discussion", 
+          author: "Jamie Wilson",
+          date: "2025-02-01", 
+          replies: 15,
+          lastActivity: "2025-02-25"
+        },
+        { 
+          id: 7, 
+          title: "Xeriscaping best practices", 
+          author: "Leslie Martin",
+          date: "2025-02-10", 
+          replies: 11,
+          lastActivity: "2025-03-05"
+        }
       ],
       similarProblems: [
         { id: 5, title: "Wildfire Prevention & Response", relation: "Environmental planning" }
@@ -192,8 +302,53 @@ const getProblemData = (id: string) => {
         { id: 12, name: "Health Department", type: "government" }
       ],
       contributions: [
-        { id: 11, type: "Resource", title: "Community Garden Map", author: "River Johnson", date: "2025-02-20", votes: 10 },
-        { id: 12, type: "Idea", title: "Mobile Farmers Market", author: "Sam Patel", date: "2025-03-01", votes: 16 }
+        { 
+          id: 11, 
+          type: "Resource", 
+          title: "Community Garden Map", 
+          author: "River Johnson", 
+          date: "2025-02-20", 
+          votes: 10,
+          description: "Interactive map of community gardens and food resources throughout Boulder County.",
+          comments: [
+            { id: 12, author: "Sam Patel", content: "Could you add information about which gardens have open plots available?", date: "2025-02-21", likes: 3 }
+          ]
+        },
+        { 
+          id: 12, 
+          type: "Idea", 
+          title: "Mobile Farmers Market", 
+          author: "Sam Patel", 
+          date: "2025-03-01", 
+          votes: 16,
+          description: "Proposal for a mobile farmers market that visits underserved neighborhoods with affordable fresh produce.",
+          comments: [
+            { id: 13, author: "River Johnson", content: "This could partner well with the community gardens I've mapped.", date: "2025-03-02", likes: 4 },
+            { id: 14, author: "Taylor Reed", content: "Has anyone tried contacting local farms about possible partnerships?", date: "2025-03-03", likes: 2 }
+          ]
+        }
+      ],
+      relatedProjects: [
+        { id: 7, name: "Community Kitchen Incubator", status: "Active" },
+        { id: 8, name: "School Garden Program", status: "Active" }
+      ],
+      forumThreads: [
+        { 
+          id: 8, 
+          title: "SNAP benefits accessibility", 
+          author: "Sam Patel",
+          date: "2025-02-05", 
+          replies: 9,
+          lastActivity: "2025-02-28"
+        },
+        { 
+          id: 9, 
+          title: "Food waste reduction ideas", 
+          author: "River Johnson",
+          date: "2025-02-15", 
+          replies: 12,
+          lastActivity: "2025-03-10"
+        }
       ],
       similarProblems: [
         { id: 2, title: "Affordable Housing Solutions", relation: "Economic equity" },
@@ -219,9 +374,65 @@ const getProblemData = (id: string) => {
         { id: 15, name: "Neighborhood Associations", type: "community" }
       ],
       contributions: [
-        { id: 13, type: "Research", title: "Fire Risk Assessment", author: "Jordan Smith", date: "2025-01-25", votes: 21 },
-        { id: 14, type: "Idea", title: "Community Alert System", author: "Casey Jones", date: "2025-02-03", votes: 25 },
-        { id: 15, type: "Resource", title: "Evacuation Route Maps", author: "Taylor Reed", date: "2025-02-10", votes: 17 }
+        { 
+          id: 13, 
+          type: "Research", 
+          title: "Fire Risk Assessment", 
+          author: "Jordan Smith", 
+          date: "2025-01-25", 
+          votes: 21,
+          description: "Detailed risk assessment of Boulder County areas most vulnerable to wildfire.",
+          comments: [
+            { id: 15, author: "Casey Jones", content: "This is incredibly useful for our neighborhood planning efforts.", date: "2025-01-26", likes: 6 }
+          ]
+        },
+        { 
+          id: 14, 
+          type: "Idea", 
+          title: "Community Alert System", 
+          author: "Casey Jones", 
+          date: "2025-02-03", 
+          votes: 25,
+          description: "Proposal for an improved community alert and evacuation notification system.",
+          comments: [
+            { id: 16, author: "Jordan Smith", content: "This addresses the communication gaps we identified in the risk assessment.", date: "2025-02-04", likes: 7 },
+            { id: 17, author: "Taylor Reed", content: "Could this integrate with the evacuation route maps?", date: "2025-02-05", likes: 4 }
+          ]
+        },
+        { 
+          id: 15, 
+          type: "Resource", 
+          title: "Evacuation Route Maps", 
+          author: "Taylor Reed", 
+          date: "2025-02-10", 
+          votes: 17,
+          description: "Comprehensive evacuation route maps for all Boulder County neighborhoods.",
+          comments: [
+            { id: 18, author: "Casey Jones", content: "These should be distributed to every household in high-risk areas.", date: "2025-02-11", likes: 5 }
+          ]
+        }
+      ],
+      relatedProjects: [
+        { id: 9, name: "Wildfire Mitigation Cooperative", status: "Active" },
+        { id: 10, name: "Emergency Response Training Program", status: "Planning" }
+      ],
+      forumThreads: [
+        { 
+          id: 10, 
+          title: "Forest management practices", 
+          author: "Jordan Smith",
+          date: "2025-01-15", 
+          replies: 20,
+          lastActivity: "2025-02-20"
+        },
+        { 
+          id: 11, 
+          title: "Home hardening techniques", 
+          author: "Taylor Reed",
+          date: "2025-01-30", 
+          replies: 15,
+          lastActivity: "2025-02-25"
+        }
       ],
       similarProblems: [
         { id: 3, title: "Sustainable Water Management", relation: "Environmental planning" }
@@ -246,8 +457,53 @@ const getProblemData = (id: string) => {
         { id: 18, name: "CU Boulder Counseling Services", type: "organization" }
       ],
       contributions: [
-        { id: 16, type: "Research", title: "Mental Health Service Gaps", author: "Alex Rivera", date: "2025-02-15", votes: 14 },
-        { id: 17, type: "Idea", title: "Peer Support Network", author: "Morgan Lee", date: "2025-02-28", votes: 18 }
+        { 
+          id: 16, 
+          type: "Research", 
+          title: "Mental Health Service Gaps", 
+          author: "Alex Rivera", 
+          date: "2025-02-15", 
+          votes: 14,
+          description: "Analysis of gaps in mental health service availability across Boulder County.",
+          comments: [
+            { id: 19, author: "Morgan Lee", content: "The data on wait times is particularly concerning.", date: "2025-02-16", likes: 5 }
+          ]
+        },
+        { 
+          id: 17, 
+          type: "Idea", 
+          title: "Peer Support Network", 
+          author: "Morgan Lee", 
+          date: "2025-02-28", 
+          votes: 18,
+          description: "Proposal for developing a trained peer support network to supplement professional services.",
+          comments: [
+            { id: 20, author: "Alex Rivera", content: "This could help address some of the immediate access issues identified in my research.", date: "2025-03-01", likes: 6 },
+            { id: 21, author: "Jamie Wilson", content: "Has anyone looked into similar programs in other communities?", date: "2025-03-02", likes: 3 }
+          ]
+        }
+      ],
+      relatedProjects: [
+        { id: 11, name: "School Mental Health Initiative", status: "Planning" },
+        { id: 12, name: "Community Wellness Hub", status: "Proposed" }
+      ],
+      forumThreads: [
+        { 
+          id: 12, 
+          title: "Mental health stigma reduction", 
+          author: "Morgan Lee",
+          date: "2025-02-10", 
+          replies: 14,
+          lastActivity: "2025-03-05"
+        },
+        { 
+          id: 13, 
+          title: "Youth mental health concerns", 
+          author: "Alex Rivera",
+          date: "2025-02-20", 
+          replies: 18,
+          lastActivity: "2025-03-10"
+        }
       ],
       similarProblems: [
         { id: 4, title: "Food Security for Low-Income Residents", relation: "Community wellbeing" }
