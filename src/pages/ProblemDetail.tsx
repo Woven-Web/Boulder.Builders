@@ -20,7 +20,7 @@ const getProblemData = (id: string) => {
       description: "How might we improve transportation options for all Boulder residents, especially those without cars?",
       detailedDescription: "Boulder faces significant transportation challenges, especially for residents who don't own cars. Limited public transit routes, inadequate bicycle infrastructure in some areas, and the high cost of transportation services create barriers to mobility. This particularly affects low-income residents, seniors, people with disabilities, and those who live in underserved neighborhoods. We need innovative solutions to ensure everyone can access jobs, education, healthcare, and other essential services.",
       contributors: 8,
-      contributions: 12,
+      contributionCount: 12,
       status: "APPROVED",
       voteCount: 56,
       dateSubmitted: "2025-01-15",
@@ -49,7 +49,7 @@ const getProblemData = (id: string) => {
       description: "Exploring innovative approaches to increase affordable housing stock in Boulder County.",
       detailedDescription: "Boulder faces a severe affordable housing shortage, making it increasingly difficult for middle and low-income residents to find suitable housing. The high cost of living pushes essential workers out of the city, creating longer commutes, increased traffic, and a less diverse community. We need creative solutions that increase affordable housing stock while preserving Boulder's unique character and environmental values.",
       contributors: 5,
-      contributions: 8,
+      contributionCount: 8,
       status: "APPROVED",
       voteCount: 72,
       dateSubmitted: "2025-01-10",
@@ -77,7 +77,7 @@ const getProblemData = (id: string) => {
       description: "Developing strategies for water conservation and drought resilience in our community.",
       detailedDescription: "With climate change increasing the frequency and severity of droughts in Colorado, Boulder faces significant challenges in water resource management. Our community needs to develop more sustainable water usage practices and infrastructure to ensure long-term water security while maintaining the natural beauty and ecological health of our watershed. We seek solutions that balance residential, agricultural, and recreational water needs.",
       contributors: 4,
-      contributions: 6,
+      contributionCount: 6,
       status: "APPROVED",
       voteCount: 48,
       dateSubmitted: "2025-01-20",
@@ -104,7 +104,7 @@ const getProblemData = (id: string) => {
       description: "Addressing food deserts and access to fresh, affordable food for all Boulder residents.",
       detailedDescription: "Despite Boulder's reputation for health and wellness, many low-income residents struggle with food insecurity and limited access to fresh, nutritious food. Food deserts exist in several neighborhoods, and the high cost of living leaves many families with inadequate resources for healthy meals. We need innovative solutions to ensure all Boulder residents have reliable access to affordable, nutritious food options.",
       contributors: 3,
-      contributions: 4,
+      contributionCount: 4,
       status: "APPROVED",
       voteCount: 41,
       dateSubmitted: "2025-01-25",
@@ -131,7 +131,7 @@ const getProblemData = (id: string) => {
       description: "Improving community preparation, response, and recovery for wildfire events.",
       detailedDescription: "As climate change intensifies, Boulder faces increased risk of catastrophic wildfires. Recent events have demonstrated the need for better preparation, response coordination, and recovery planning. We need comprehensive solutions that address forest management, emergency communications, evacuation planning, and community resilience in the face of growing wildfire threats.",
       contributors: 6,
-      contributions: 9,
+      contributionCount: 9,
       status: "APPROVED",
       voteCount: 68,
       dateSubmitted: "2025-01-05",
@@ -158,7 +158,7 @@ const getProblemData = (id: string) => {
       description: "Expanding access to mental health services and reducing stigma in our community.",
       detailedDescription: "Boulder residents face significant challenges accessing affordable, timely mental health services. Long wait times, high costs, and stigma create barriers to care, particularly for youth, students, and marginalized communities. We need innovative approaches to expand mental health resources, raise awareness, reduce stigma, and create supportive environments that promote mental wellbeing for all community members.",
       contributors: 4,
-      contributions: 5,
+      contributionCount: 5,
       status: "POTENTIAL",
       voteCount: 37,
       dateSubmitted: "2025-02-01",
@@ -267,7 +267,7 @@ const ProblemDetail = () => {
             </div>
             <div className="bg-white p-3 rounded-md shadow-sm">
               <div className="text-boulder-stone-500 text-sm">Contributions</div>
-              <div className="font-medium">{problem.contributions?.length || 0}</div>
+              <div className="font-medium">{problem.contributionCount}</div>
             </div>
             <div className="bg-white p-3 rounded-md shadow-sm">
               <div className="text-boulder-stone-500 text-sm">Votes</div>

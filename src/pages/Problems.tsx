@@ -16,7 +16,7 @@ const problemsData = [
     title: "Urban Mobility & Transportation Access",
     description: "How might we improve transportation options for all Boulder residents, especially those without cars?",
     contributors: 8,
-    contributions: 12,
+    contributionCount: 12,
     status: "APPROVED",
   },
   {
@@ -24,7 +24,7 @@ const problemsData = [
     title: "Affordable Housing Solutions",
     description: "Exploring innovative approaches to increase affordable housing stock in Boulder County.",
     contributors: 5,
-    contributions: 8,
+    contributionCount: 8,
     status: "APPROVED",
   },
   {
@@ -32,7 +32,7 @@ const problemsData = [
     title: "Sustainable Water Management",
     description: "Developing strategies for water conservation and drought resilience in our community.",
     contributors: 4,
-    contributions: 6,
+    contributionCount: 6,
     status: "APPROVED",
   },
   {
@@ -40,7 +40,7 @@ const problemsData = [
     title: "Food Security for Low-Income Residents",
     description: "Addressing food deserts and access to fresh, affordable food for all Boulder residents.",
     contributors: 3,
-    contributions: 4,
+    contributionCount: 4,
     status: "APPROVED",
   },
   {
@@ -48,7 +48,7 @@ const problemsData = [
     title: "Wildfire Prevention & Response",
     description: "Improving community preparation, response, and recovery for wildfire events.",
     contributors: 6,
-    contributions: 9,
+    contributionCount: 9,
     status: "APPROVED",
   },
   {
@@ -56,7 +56,7 @@ const problemsData = [
     title: "Mental Health Resources",
     description: "Expanding access to mental health services and reducing stigma in our community.",
     contributors: 4,
-    contributions: 5,
+    contributionCount: 5,
     status: "POTENTIAL",
   },
 ];
@@ -166,7 +166,7 @@ const Problems = () => {
                       {problem.contributors} contributors
                     </span>
                     <span className="text-sm text-boulder-stone-500">
-                      {problem.contributions} contributions
+                      {problem.contributionCount} contributions
                     </span>
                   </div>
                   <Link 
