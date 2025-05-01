@@ -1,12 +1,11 @@
 
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 import { Search } from "lucide-react";
+import EventCard from "@/components/event/EventCard";
 
 // Mock data for events
 const eventsData = [
@@ -58,18 +57,7 @@ const eventsData = [
 
 const Events = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  
-  // Format date for display
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
+  const { toast } = useToast();
   
   // Filter events based on search query
   const filteredEvents = eventsData.filter(event => {
@@ -78,6 +66,22 @@ const Events = () => {
            (event.relatedProblem && event.relatedProblem.toLowerCase().includes(searchQuery.toLowerCase())) ||
            (event.relatedProject && event.relatedProject.toLowerCase().includes(searchQuery.toLowerCase()));
   });
+
+  const handleRSVP = (eventId: number) => {
+    toast({
+      title: "RSVP Successful",
+      description: "You've been added to the event attendees list.",
+      variant: "default"
+    });
+  };
+
+  const handleSubmitEvent = () => {
+    toast({
+      title: "Event Submitted",
+      description: "Your event has been submitted for approval.",
+      variant: "default"
+    });
+  };
 
   return (
     <Layout>
@@ -89,7 +93,7 @@ const Events = () => {
             <p className="text-boulder-stone-600 mb-6">
               Join in-person and virtual events to collaborate, learn, and take action on local challenges.
             </p>
-            <Button className="bg-boulder-teal-500 hover:bg-boulder-teal-600">
+            <Button className="bg-boulder-teal-500 hover:bg-boulder-teal-600" onClick={handleSubmitEvent}>
               Submit an Event
             </Button>
           </div>
@@ -116,67 +120,20 @@ const Events = () => {
           {/* Events List */}
           <div className="space-y-6">
             {filteredEvents.map((event) => (
-              <Card key={event.id} className="boulder-card">
-                <CardHeader>
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
-                    <CardTitle className="text-xl">{event.name}</CardTitle>
-                    <Badge variant="outline" className={
-                      event.status === "APPROVED" 
-                        ? "bg-boulder-green-50 text-boulder-green-600 border-boulder-green-200"
-                        : "bg-boulder-sand-50 text-boulder-sand-700 border-boulder-sand-200"
-                    }>
-                      {event.status === "APPROVED" ? "Approved" : "Pending Approval"}
-                    </Badge>
-                  </div>
-                  <CardDescription className="text-boulder-stone-500">
-                    {formatDate(event.date)}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="md:col-span-2">
-                      <p className="text-boulder-stone-600 mb-4">{event.description}</p>
-                      <div className="flex flex-wrap gap-1">
-                        {event.relatedProblem && (
-                          <Badge variant="secondary" className="bg-boulder-coral-50 text-boulder-coral-600 border-none">
-                            Related Problem: {event.relatedProblem}
-                          </Badge>
-                        )}
-                        {event.relatedProject && (
-                          <Badge variant="secondary" className="bg-boulder-green-50 text-boulder-green-600 border-none">
-                            Related Project: {event.relatedProject}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <div>
-                        <h4 className="text-sm font-medium text-boulder-stone-700">Location</h4>
-                        <p className="text-sm text-boulder-stone-600">{event.location}</p>
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-medium text-boulder-stone-700">Organizer</h4>
-                        <p className="text-sm text-boulder-stone-600">{event.organizer}</p>
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-medium text-boulder-stone-700">Attendees</h4>
-                        <p className="text-sm text-boulder-stone-600">{event.attendees} people attending</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-                <CardFooter className="border-t pt-4 flex justify-between">
-                  <Button variant="outline" className="text-boulder-teal-600 border-boulder-teal-200 hover:bg-boulder-teal-50">
-                    RSVP to Event
-                  </Button>
-                  <Link 
-                    to={`/events/${event.id}`} 
-                    className="text-boulder-teal-600 hover:text-boulder-teal-700 text-sm font-medium flex items-center"
-                  >
-                    View details →
-                  </Link>
-                </CardFooter>
-              </Card>
+              <EventCard
+                key={event.id}
+                id={event.id}
+                name={event.name}
+                description={event.description}
+                date={event.date}
+                location={event.location}
+                organizer={event.organizer}
+                attendees={event.attendees}
+                relatedProblem={event.relatedProblem}
+                relatedProject={event.relatedProject}
+                status={event.status}
+                onRSVP={() => handleRSVP(event.id)}
+              />
             ))}
           </div>
           

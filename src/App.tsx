@@ -14,6 +14,8 @@ import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import People from "./pages/People";
 import Events from "./pages/Events";
+import EventDetail from "./pages/EventDetail";
+import EventSubmit from "./pages/EventSubmit";
 import About from "./pages/About";
 import CodeOfConduct from "./pages/CodeOfConduct";
 import NotFound from "./pages/NotFound";
@@ -39,6 +41,8 @@ const App = () => (
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/people" element={<People />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<EventDetail />} />
+          <Route path="/events/submit" element={<EventSubmit />} />
           <Route path="/map" element={<Map />} />
           <Route path="/my-contributions" element={<MyContributions />} />
           <Route path="/curation" element={<CurationDashboard />} />
