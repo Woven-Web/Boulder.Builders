@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
@@ -154,7 +153,7 @@ const ProblemDiscoveryDetail = () => {
     toast({
       title: "Problem approved",
       description: "This problem has been promoted to an approved problem.",
-      variant: "success"
+      variant: "default"
     });
   };
 
