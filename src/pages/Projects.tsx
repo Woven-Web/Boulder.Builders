@@ -10,7 +10,7 @@ import { Search } from "lucide-react";
 // Mock data for projects
 const projectsData = [
   {
-    id: 1,
+    id: "1",
     name: "Community Solar Gardens",
     description: "A project to expand community-owned solar options for residents who can't install solar on their properties.",
     status: "In Progress",
@@ -20,7 +20,7 @@ const projectsData = [
     githubUrl: "#",
   },
   {
-    id: 2,
+    id: "2",
     name: "Rental Rights App",
     description: "Mobile app to help renters understand their rights and available resources in Boulder County.",
     status: "Planning",
@@ -30,7 +30,7 @@ const projectsData = [
     githubUrl: "#",
   },
   {
-    id: 3,
+    id: "3",
     name: "Boulder Creek Watershed Monitoring",
     description: "Citizen science project to monitor water quality in Boulder Creek and its tributaries.",
     status: "In Progress",
@@ -40,7 +40,7 @@ const projectsData = [
     githubUrl: "#",
   },
   {
-    id: 4,
+    id: "4",
     name: "Multi-modal Transportation Map",
     description: "Interactive map showing bike lanes, bus routes, and pedestrian paths to encourage car-free transportation.",
     status: "Planning",

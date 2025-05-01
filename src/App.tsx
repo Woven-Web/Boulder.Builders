@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Problems from "./pages/Problems";
 import ProblemDetail from "./pages/ProblemDetail";
 import Projects from "./pages/Projects";
+import ProjectDetail from "./pages/ProjectDetail";
 import People from "./pages/People";
 import Events from "./pages/Events";
 import About from "./pages/About";
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/problems" element={<Problems />} />
           <Route path="/problems/:id" element={<ProblemDetail />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/people" element={<People />} />
           <Route path="/events" element={<Events />} /> {/* This is now our Calendar page */}
           <Route path="/about" element={<About />} />
