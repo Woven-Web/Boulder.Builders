@@ -1,19 +1,47 @@
 
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Github } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
+// Mock authentication state (would be replaced with actual auth later)
+const useAuth = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const login = () => {
+    // Mock login with GitHub
+    console.log('Initiating GitHub authentication...');
+    // In a real implementation, this would redirect to GitHub OAuth
+    setTimeout(() => {
+      setIsAuthenticated(true);
+      setUser({
+        username: 'boulderuser',
+        avatar: 'https://github.com/github.png',
+        role: 'COMMUNITY'
+      });
+    }, 500);
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+    setUser(null);
+  };
+
+  return { isAuthenticated, user, login, logout };
+};
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, user, login, logout } = useAuth();
   
   const navLinks = [
     { name: 'Problems', path: '/problems' },
     { name: 'Projects', path: '/projects' },
     { name: 'People', path: '/people' },
-    { name: 'Map', path: '/map' }, // Add Map link
+    { name: 'Map', path: '/map' },
     { name: 'Calendar', path: '/events' },
     { name: 'About', path: '/about' },
   ];
@@ -23,6 +51,20 @@ const Navigation = () => {
     { name: 'Home', path: '/' },
     ...navLinks
   ];
+
+  // Add user-specific links if authenticated
+  if (isAuthenticated) {
+    mobileNavLinks.push(
+      { name: 'My Contributions', path: '/my-contributions' }
+    );
+    
+    // Add curator dashboard link if user has curator role
+    if (user && user.role === 'CURATOR') {
+      mobileNavLinks.push(
+        { name: 'Curation Dashboard', path: '/curation' }
+      );
+    }
+  }
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -41,7 +83,7 @@ const Navigation = () => {
           </span>
         </Link>
 
-        {/* Desktop Navigation - Home removed */}
+        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
             <Link 
@@ -59,11 +101,57 @@ const Navigation = () => {
           ))}
         </div>
 
-        {/* Auth Button (Placeholder for GitHub Auth) */}
+        {/* Auth Button */}
         <div className="hidden md:flex items-center gap-2">
-          <Button variant="outline" className="border-boulder-teal-200 text-boulder-teal-700 hover:bg-boulder-teal-50 hover:text-boulder-teal-700">
-            Sign In with GitHub
-          </Button>
+          {isAuthenticated ? (
+            <div className="flex items-center gap-3">
+              {user && user.role === 'CURATOR' && (
+                <Link to="/curation" className={cn(
+                  "px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                  isActive('/curation')
+                    ? "bg-boulder-teal-50 text-boulder-teal-600"
+                    : "text-foreground/80 hover:text-foreground hover:bg-muted"
+                )}>
+                  Curation Dashboard
+                </Link>
+              )}
+              <Link to="/my-contributions" className={cn(
+                "px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                isActive('/my-contributions')
+                  ? "bg-boulder-teal-50 text-boulder-teal-600"
+                  : "text-foreground/80 hover:text-foreground hover:bg-muted"
+              )}>
+                My Contributions
+              </Link>
+              <Link to={`/profile/${user?.username}`} className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-full bg-boulder-teal-100 flex items-center justify-center overflow-hidden">
+                  {user?.avatar ? (
+                    <img src={user.avatar} alt={user.username} className="h-full w-full object-cover" />
+                  ) : (
+                    <span className="text-boulder-teal-500 font-medium text-sm">
+                      {user?.username?.charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                </div>
+              </Link>
+              <Button 
+                variant="ghost" 
+                onClick={logout}
+                className="text-boulder-stone-600 hover:text-boulder-stone-800 hover:bg-boulder-stone-50"
+              >
+                Sign Out
+              </Button>
+            </div>
+          ) : (
+            <Button 
+              variant="outline" 
+              className="border-boulder-teal-200 text-boulder-teal-700 hover:bg-boulder-teal-50 hover:text-boulder-teal-700"
+              onClick={login}
+            >
+              <Github className="h-4 w-4 mr-2" />
+              Sign In with GitHub
+            </Button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -76,7 +164,7 @@ const Navigation = () => {
         </button>
       </nav>
 
-      {/* Mobile Menu - Keeps Home in the navigation */}
+      {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-background border-b animate-fade-in">
           <div className="container mx-auto px-4 py-2 flex flex-col">
@@ -96,9 +184,50 @@ const Navigation = () => {
               </Link>
             ))}
             <div className="mt-4 mb-2">
-              <Button variant="outline" className="w-full border-boulder-teal-200 text-boulder-teal-700 hover:bg-boulder-teal-50 hover:text-boulder-teal-700">
-                Sign In with GitHub
-              </Button>
+              {isAuthenticated ? (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3 px-4 py-3">
+                    <div className="h-8 w-8 rounded-full bg-boulder-teal-100 flex items-center justify-center overflow-hidden">
+                      {user?.avatar ? (
+                        <img src={user.avatar} alt={user?.username} className="h-full w-full object-cover" />
+                      ) : (
+                        <span className="text-boulder-teal-500 font-medium text-sm">
+                          {user?.username?.charAt(0).toUpperCase()}
+                        </span>
+                      )}
+                    </div>
+                    <Link 
+                      to={`/profile/${user?.username}`}
+                      className="text-sm font-medium"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      View Profile
+                    </Link>
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    onClick={() => {
+                      logout();
+                      setIsOpen(false);
+                    }}
+                    className="w-full text-boulder-stone-600 hover:text-boulder-stone-800 hover:bg-boulder-stone-50"
+                  >
+                    Sign Out
+                  </Button>
+                </div>
+              ) : (
+                <Button 
+                  variant="outline" 
+                  className="w-full border-boulder-teal-200 text-boulder-teal-700 hover:bg-boulder-teal-50 hover:text-boulder-teal-700"
+                  onClick={() => {
+                    login();
+                    setIsOpen(false);
+                  }}
+                >
+                  <Github className="h-4 w-4 mr-2" />
+                  Sign In with GitHub
+                </Button>
+              )}
             </div>
           </div>
         </div>
