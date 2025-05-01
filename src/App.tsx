@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Problems from "./pages/Problems";
 import Projects from "./pages/Projects";
-import Map from "./pages/Map";
+import People from "./pages/People";
 import Events from "./pages/Events";
 import About from "./pages/About";
 import CodeOfConduct from "./pages/CodeOfConduct";
@@ -27,7 +27,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/problems" element={<Problems />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/map" element={<Map />} />
+          <Route path="/people" element={<People />} />
           <Route path="/events" element={<Events />} />
           <Route path="/about" element={<About />} />
           <Route path="/code-of-conduct" element={<CodeOfConduct />} />
