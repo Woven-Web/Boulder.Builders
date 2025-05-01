@@ -4,9 +4,25 @@ import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, MapPin, Users, FileText, ListChecks } from "lucide-react";
+import { Search, FileText, ListChecks } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { CheckIcon } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 // Mock data for people
 const peopleData = [
@@ -79,7 +95,7 @@ const peopleData = [
 
 const People = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   
   // Get unique skills across all people
   const allSkills = Array.from(
@@ -88,17 +104,26 @@ const People = () => {
     )
   ).sort();
   
-  // Filter people based on search query and selected skill
+  // Filter people based on search query and selected skills
   const filteredPeople = peopleData.filter(person => {
     const matchesSearch = 
       person.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       person.bio.toLowerCase().includes(searchQuery.toLowerCase()) ||
       person.role.toLowerCase().includes(searchQuery.toLowerCase());
       
-    const matchesSkill = !selectedSkill || person.skills.includes(selectedSkill);
+    const matchesSkills = selectedSkills.length === 0 || 
+      selectedSkills.some(skill => person.skills.includes(skill));
     
-    return matchesSearch && matchesSkill;
+    return matchesSearch && matchesSkills;
   });
+
+  const toggleSkill = (skill: string) => {
+    setSelectedSkills(prev => 
+      prev.includes(skill)
+        ? prev.filter(s => s !== skill)
+        : [...prev, skill]
+    );
+  };
 
   return (
     <Layout>
@@ -132,19 +157,57 @@ const People = () => {
             
             <div className="flex-1">
               <h3 className="text-sm font-medium mb-2">Filter by skill</h3>
-              <div className="flex flex-wrap gap-2">
-                {allSkills.map((skill) => (
-                  <Button
-                    key={skill}
-                    variant={selectedSkill === skill ? "default" : "outline"}
-                    size="sm"
-                    className={selectedSkill === skill ? "bg-boulder-teal-500 hover:bg-boulder-teal-600" : ""}
-                    onClick={() => setSelectedSkill(selectedSkill === skill ? null : skill)}
-                  >
-                    {skill}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="w-full md:w-auto justify-between">
+                    {selectedSkills.length === 0 
+                      ? "Select skills" 
+                      : `${selectedSkills.length} skill${selectedSkills.length > 1 ? 's' : ''} selected`}
+                    <CheckIcon className="ml-2 h-4 w-4" />
                   </Button>
-                ))}
-              </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>Skills</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {allSkills.map((skill) => (
+                    <DropdownMenuCheckboxItem
+                      key={skill}
+                      checked={selectedSkills.includes(skill)}
+                      onCheckedChange={() => toggleSkill(skill)}
+                    >
+                      {skill}
+                    </DropdownMenuCheckboxItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+              
+              {selectedSkills.length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {selectedSkills.map(skill => (
+                    <Badge 
+                      key={skill}
+                      variant="secondary"
+                      className="px-2 py-1 flex items-center gap-1"
+                    >
+                      {skill}
+                      <button 
+                        onClick={() => toggleSkill(skill)}
+                        className="ml-1 rounded-full hover:bg-muted"
+                      >
+                        ×
+                      </button>
+                    </Badge>
+                  ))}
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-xs"
+                    onClick={() => setSelectedSkills([])}
+                  >
+                    Clear all
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
           

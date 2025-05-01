@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
@@ -10,12 +9,17 @@ const Navigation = () => {
   const location = useLocation();
   
   const navLinks = [
-    { name: 'Home', path: '/' },
     { name: 'Problems', path: '/problems' },
     { name: 'Projects', path: '/projects' },
     { name: 'People', path: '/people' },
-    { name: 'Events', path: '/events' },
+    { name: 'Calendar', path: '/events' }, // Renamed from "Events" to "Calendar"
     { name: 'About', path: '/about' },
+  ];
+
+  // For mobile, we keep Home in the navigation
+  const mobileNavLinks = [
+    { name: 'Home', path: '/' },
+    ...navLinks
   ];
 
   const isActive = (path: string) => {
@@ -35,7 +39,7 @@ const Navigation = () => {
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation - Home removed */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
             <Link 
@@ -70,11 +74,11 @@ const Navigation = () => {
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Keeps Home in the navigation */}
       {isOpen && (
         <div className="md:hidden bg-background border-b animate-fade-in">
           <div className="container mx-auto px-4 py-2 flex flex-col">
-            {navLinks.map((link) => (
+            {mobileNavLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}

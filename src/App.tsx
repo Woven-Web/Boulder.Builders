@@ -28,7 +28,7 @@ const App = () => (
           <Route path="/problems" element={<Problems />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/people" element={<People />} />
-          <Route path="/events" element={<Events />} />
+          <Route path="/events" element={<Events />} /> {/* This is now our Calendar page */}
           <Route path="/about" element={<About />} />
           <Route path="/code-of-conduct" element={<CodeOfConduct />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
