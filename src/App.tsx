@@ -16,6 +16,10 @@ import Events from "./pages/Events";
 import About from "./pages/About";
 import CodeOfConduct from "./pages/CodeOfConduct";
 import NotFound from "./pages/NotFound";
+import Map from "./pages/Map";
+import MyContributions from "./pages/MyContributions";
+import CurationDashboard from "./pages/CurationDashboard";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +36,11 @@ const App = () => (
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/people" element={<People />} />
-          <Route path="/events" element={<Events />} /> {/* This is now our Calendar page */}
+          <Route path="/events" element={<Events />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/my-contributions" element={<MyContributions />} />
+          <Route path="/curation" element={<CurationDashboard />} />
+          <Route path="/profile/:username" element={<Profile />} />
           <Route path="/about" element={<About />} />
           <Route path="/code-of-conduct" element={<CodeOfConduct />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

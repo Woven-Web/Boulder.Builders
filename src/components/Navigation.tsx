@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
@@ -12,7 +13,8 @@ const Navigation = () => {
     { name: 'Problems', path: '/problems' },
     { name: 'Projects', path: '/projects' },
     { name: 'People', path: '/people' },
-    { name: 'Calendar', path: '/events' }, // Renamed from "Events" to "Calendar"
+    { name: 'Map', path: '/map' }, // Add Map link
+    { name: 'Calendar', path: '/events' },
     { name: 'About', path: '/about' },
   ];
 
