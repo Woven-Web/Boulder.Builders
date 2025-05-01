@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
+import EmptyState from "@/components/people/EmptyState";
 
 // Mock data for problems
 const problemsData = [
@@ -181,12 +182,10 @@ const Problems = () => {
           
           {/* Empty State */}
           {filteredProblems.length === 0 && (
-            <div className="text-center py-12">
-              <h3 className="text-xl font-medium mb-2">No problems found</h3>
-              <p className="text-boulder-stone-500">
-                Try adjusting your search or propose a new problem to discuss.
-              </p>
-            </div>
+            <EmptyState 
+              title="No problems found"
+              message="Try adjusting your search or propose a new problem to discuss."
+            />
           )}
         </div>
       </section>

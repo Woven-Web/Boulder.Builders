@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Pages
 import Index from "./pages/Index";
 import Problems from "./pages/Problems";
+import ProblemDetail from "./pages/ProblemDetail";
 import Projects from "./pages/Projects";
 import People from "./pages/People";
 import Events from "./pages/Events";
@@ -26,6 +27,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/problems" element={<Problems />} />
+          <Route path="/problems/:id" element={<ProblemDetail />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/people" element={<People />} />
           <Route path="/events" element={<Events />} /> {/* This is now our Calendar page */}

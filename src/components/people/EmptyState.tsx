@@ -1,12 +1,20 @@
 
 import React from "react";
 
-const EmptyState = () => {
+interface EmptyStateProps {
+  title?: string;
+  message?: string;
+}
+
+const EmptyState = ({ 
+  title = "No people found", 
+  message = "Try adjusting your search or filters."
+}: EmptyStateProps) => {
   return (
     <div className="text-center py-12">
-      <h3 className="text-xl font-medium mb-2">No people found</h3>
+      <h3 className="text-xl font-medium mb-2">{title}</h3>
       <p className="text-boulder-stone-500">
-        Try adjusting your search or filters.
+        {message}
       </p>
     </div>
   );
