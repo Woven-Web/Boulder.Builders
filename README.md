@@ -1,73 +1,70 @@
-# Welcome to your Lovable project
 
-## Project info
+# Boulder.Builders - Build a Better Boulder, Together
 
-**URL**: https://lovable.dev/projects/65113319-fc36-4420-8424-96128250c5dc
+## Vision
 
-## How can I edit this code?
+Boulder.Builders is a community platform designed to foster a more connected, resilient, and innovative Boulder community by providing a dedicated platform for open collaboration on local challenges and opportunities.
 
-There are several ways of editing your application.
+Our goal is to connect three key elements:
+- **People** - Residents, students, entrepreneurs, community organizers, and anyone with a connection to Boulder
+- **Problems** - Community-identified challenges and inquiries approved for collaborative exploration
+- **Projects** - Initiatives and solutions emerging from problem discussions
 
-**Use Lovable**
+## Current Status: Work in Progress
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/65113319-fc36-4420-8424-96128250c5dc) and start prompting.
+**This project is in early development.** Everything in this repository is likely to change significantly as we build toward our vision. We're currently working on:
 
-Changes made via Lovable will be committed automatically to this repo.
+1. Building a strong foundation for the platform
+2. Implementing the core collaboration workflows
+3. Designing an intuitive, accessible interface
+4. Testing different approaches to community engagement
 
-**Use your preferred IDE**
+## Core Concepts
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### The P-P-P (People-Problems-Projects) Map
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+The central organizing principle for visualizing our ecosystem:
+- **People**: Opted-in participants showcasing their involvement and skills
+- **Problems**: Community-identified challenges or inquiries for collaborative exploration
+- **Projects**: Formalized initiatives or solutions emerging from problem discussions
+- **Connections**: Visualizing the relationships between these entities
 
-Follow these steps:
+### Open Contribution ("Commons")
+
+Contributions (ideas, research, mockups, etc.) shared within the "Problem Collaboration" spaces are explicitly understood to be offered under an open license to encourage building upon each other's work without ownership friction in the early stages.
+
+## Get Involved
+
+- **Follow Us**: Watch this repository for updates
+- **Join Our Newsletter**: Subscribe at [WovenWeb.beehiiv.com](https://wovenweb.beehiiv.com) for project announcements
+- **Contribute**: This project is still taking shape, but we welcome discussions and ideas
+
+## Technical Stack
+
+- Frontend: React with TypeScript, Tailwind CSS, shadcn/ui
+- Backend & Database: Supabase (PostgreSQL) - coming soon
+- Authentication: GitHub OAuth - coming soon
+
+## Development Setup
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Clone the repository
+git clone https://github.com/Woven-Web/Boulder.Builders.git
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navigate to the project directory
+cd Boulder.Builders
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## License
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This project is currently being evaluated for the most appropriate open-source license.
 
-**Use GitHub Codespaces**
+## Acknowledgments
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/65113319-fc36-4420-8424-96128250c5dc) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Built with ❤️ in Boulder, Colorado as part of the [Woven Web](https://wovenweb.beehiiv.com) initiative.

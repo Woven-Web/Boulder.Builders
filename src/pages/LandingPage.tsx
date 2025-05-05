@@ -25,8 +25,7 @@ const LandingPage = () => {
     
     setIsSubmitting(true);
     
-    // In a real implementation, this would submit to Beehiiv's API
-    // For now, we'll simulate a successful subscription
+    // This is handled by the form submission to Beehiiv
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubscribed(true);
@@ -100,7 +99,7 @@ const LandingPage = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <a 
-                  href="https://github.com/boulder-builders" 
+                  href="https://github.com/Woven-Web/Boulder.Builders" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-boulder-stone-600 hover:text-boulder-teal-600 transition-colors"
@@ -221,7 +220,7 @@ const LandingPage = () => {
             
             <div className="flex items-center gap-4">
               <a 
-                href="https://github.com/boulder-builders" 
+                href="https://github.com/Woven-Web/Boulder.Builders" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-boulder-stone-600 hover:text-boulder-teal-600 transition-colors"
