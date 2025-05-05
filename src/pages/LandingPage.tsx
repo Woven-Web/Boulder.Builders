@@ -1,40 +1,11 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { ArrowRight, CheckCircle, Github } from "lucide-react";
+import { ArrowRight, CheckCircle, Github, Link } from "lucide-react";
 
 const LandingPage = () => {
   const { toast } = useToast();
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!email) {
-      toast({
-        title: "Please enter your email",
-        description: "We need your email to keep you updated!",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    setIsSubmitting(true);
-    
-    // This is handled by the form submission to Beehiiv
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubscribed(true);
-      toast({
-        title: "You've been subscribed!",
-        description: "Thanks for joining the Boulder.Builders community.",
-      });
-    }, 1000);
-  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -65,36 +36,25 @@ const LandingPage = () => {
                     <span className="font-medium">Thanks for subscribing!</span>
                   </div>
                 ) : (
-                  <form 
-                    onSubmit={handleSubscribe}
-                    className="flex flex-col sm:flex-row gap-3 max-w-md"
-                    action="https://newsletter.wovenweb.beehiiv.com/subscribe"
-                    method="POST"
-                    target="_blank"
-                  >
-                    <input type="hidden" name="referring_site" value="boulder.builders" />
-                    <Input
-                      type="email"
-                      name="email"
-                      placeholder="Your email address"
-                      className="flex-grow"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                    <Button 
-                      type="submit" 
-                      className="bg-boulder-teal-500 hover:bg-boulder-teal-600 whitespace-nowrap"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "Subscribing..." : "Get Updates"}
-                      {!isSubmitting && <ArrowRight className="ml-2 h-4 w-4" />}
-                    </Button>
-                  </form>
+                  <div className="max-w-md">
+                    <iframe 
+                      src="https://embeds.beehiiv.com/6e6c326f-3e27-45d8-b69c-4dda3fc18f72?slim=true" 
+                      data-test-id="beehiiv-embed" 
+                      height="52" 
+                      width="100%"
+                      frameBorder="0" 
+                      scrolling="no" 
+                      style={{ margin: 0, borderRadius: 0, backgroundColor: 'transparent' }}
+                      title="Newsletter subscription"
+                      onLoad={() => {
+                        console.log("Beehiiv iframe loaded");
+                      }}
+                    ></iframe>
+                    <p className="text-sm text-boulder-stone-500 mt-3">
+                      Subscribe to our newsletter to be the first to know when we launch.
+                    </p>
+                  </div>
                 )}
-                <p className="text-sm text-boulder-stone-500 mt-3">
-                  Subscribe to our newsletter to be the first to know when we launch.
-                </p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -113,8 +73,8 @@ const LandingPage = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-boulder-stone-600 hover:text-boulder-teal-600 transition-colors"
                 >
+                  <Link className="h-5 w-5" />
                   <span>Read Woven Web Newsletter</span>
-                  <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
             </div>
