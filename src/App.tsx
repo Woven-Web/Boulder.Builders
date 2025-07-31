@@ -20,7 +20,7 @@ const App: React.FC = () => {
           <div className="hero-cta">
             <div className="next-meetup">
               <span className="meetup-label">Next Gathering</span>
-              <span className="meetup-date">Tuesday, July 29th • 6:30 PM</span>
+              <a href="#calendar" className="meetup-date-link">View Calendar →</a>
             </div>
             <a 
               href="https://lu.ma/boulder-builders" 
@@ -140,6 +140,29 @@ const App: React.FC = () => {
             Every Boulder Builders meetup is unique, but we always teach practical skills 
             and help you learn to use technology to bring your visions to life.
           </p>
+        </div>
+      </section>
+
+      {/* Calendar Section */}
+      <section id="calendar" className="calendar">
+        <div className="container">
+          <h2>Upcoming Events</h2>
+          <p className="calendar-description">
+            Join us at our next gathering! All events are free and open to everyone.
+          </p>
+          <div className="calendar-embed">
+            <iframe
+              src="https://lu.ma/embed/calendar/cal-ZCWMKx1NMCXGd7v/events"
+              width="600"
+              height="450"
+              frameBorder="0"
+              style={{border: "1px solid #bfcbda88", borderRadius: "4px"}}
+              allowFullScreen={true}
+              aria-hidden="false"
+              tabIndex={0}
+              title="Boulder Builders Events Calendar"
+            />
+          </div>
         </div>
       </section>
 
